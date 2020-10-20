@@ -11,14 +11,14 @@ const
 // ToDo Item
 
 const ToDoListItem = new GraphQLObjectType({
-    name: "ToDo Item",
+    name: "ToDo_Item",
     fields: () => ({
         todo_id: { type: GraphQLInt },
         todo_name: { type: GraphQLString },
         todo_desc: { type: GraphQLString },
         todo_state: { type: GraphQLBoolean }
     })
-})
+});
 
 //Root Query
 
@@ -28,7 +28,8 @@ const RootQuery = new GraphQLObjectType({
         Items: {
             type: new GraphQLList(ToDoListItem),
             resolve(parent, args) {
-                return fetch("http://localhost:5000/graphql")
+                return fetch("/graphql")
+                .then(response => {return response.json()})
                 .then(res => res.data);
             }
         }
