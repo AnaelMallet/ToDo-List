@@ -1,15 +1,6 @@
-const express = require('express');
-const { graphqlHTTP } = require('express-graphql');
-const schema = require('./schema');
+const { ApolloServer, gql } = require('apollo-server');
+const {typeDefs, resolvers} = require('./schema');
 
-const app = express();
+const server = new ApolloServer({typeDefs, resolvers})
 
-app.use(
-    '/graphql',
-    graphqlHTTP({
-      schema,
-      graphiql: true
-    })
-  );
-  
-app.listen(5000);
+server.listen(5000);

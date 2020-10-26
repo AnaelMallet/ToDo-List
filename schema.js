@@ -1,41 +1,41 @@
-const 
-{
-    GraphQLObjectType,
-    GraphQLBoolean,
-    GraphQLInt,
-    GraphQLString,
-    GraphQLList,
-    GraphQLSchema
-} = require('graphql');
+const { gql } = require('apollo-server')
 
-// ToDo Item
+var Tasks = [];
 
-const ToDoListItem = new GraphQLObjectType({
-    name: "ToDo_Item",
-    fields: () => ({
-        todo_id: { type: GraphQLInt },
-        todo_name: { type: GraphQLString },
-        todo_desc: { type: GraphQLString },
-        todo_state: { type: GraphQLBoolean }
-    })
-});
+var ID = 1;
 
-//Root Query
+const typeDefs = gql`
+    type Task {
+        taskID: ID!
+        taskName: String!
+        taskDescription: String
+        taskState: Boolean!
+    },
 
-const RootQuery = new GraphQLObjectType({
-    name: "RootQuery",
-    fields: {
-        Items: {
-            type: new GraphQLList(ToDoListItem),
-            resolve(parent, args) {
-                return fetch("/graphql")
-                .then(response => {return response.json()})
-                .then(res => res.data);
-            }
+    type Query {
+        getTasks: [Task]!
+        getTask(taskID: ID!): Task!
+    },
+
+    type Mutation {
+        createTask(taskName: String!, taskDescription: String): Task!
+    }
+`;
+
+const resolvers = {
+    Query: {
+        getTasks: () => Tasks,
+        getTask: (parent, { taskID }) => Tasks.find(task => task.taskID == taskID)
+    },
+
+    Mutation: {
+        createTask: (parent, { taskName, taskDescription, taskState }) => {
+
+            let task = { taskID: ID++, taskName, taskDescription, taskState: false }
+            Tasks.push(task)
+            return task;
         }
     }
-})
+};
 
-module.exports = new GraphQLSchema({
-    query: RootQuery
-});
+module.exports = { typeDefs, resolvers };
