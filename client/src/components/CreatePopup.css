@@ -8,7 +8,7 @@
     right: 0;
     bottom: 0;
     margin: auto;
-    background-color: rgba(0,0,0, 0.5);
+    background: rgba(0,0,0, 0.5);
     z-index: 1;
     text-align: center;
 }
@@ -19,7 +19,9 @@
     background-color: rgb(150, 150, 150);
     margin: 15% auto;
     border-radius: 10px;
+    border: 1px solid black;
     position: relative;
+    text-align: center;
     z-index: 1;
 }
 

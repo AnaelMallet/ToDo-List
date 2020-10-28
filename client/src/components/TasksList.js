@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import './css/TasksList.css';
+import './TasksList.css';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import TaskCard from './TaskCard';

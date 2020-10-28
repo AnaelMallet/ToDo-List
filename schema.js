@@ -19,6 +19,7 @@ const typeDefs = gql`
 
     type Mutation {
         createTask(taskName: String!, taskDescription: String): Task!
+        deleteTask(taskID: ID!): String!
     }
 `;
 
@@ -34,6 +35,13 @@ const resolvers = {
             let task = { taskID: ID++, taskName, taskDescription, taskState: false }
             Tasks.push(task)
             return task;
+        },
+
+        deleteTask: (parent, { taskID }) => {
+            task = Tasks.find(task => task.taskID == taskID)
+            index = Tasks.indexOf(task)
+            Tasks.splice(index, 1)
+            return "la tâche numéro " + taskID + " à été supprimée avec succés";
         }
     }
 };
