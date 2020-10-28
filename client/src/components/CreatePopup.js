@@ -37,11 +37,11 @@ class Popup extends Component {
         this.props.toggle();
        };
     
-    getName(event) {
+    setName(event) {
         this.Name = event.target.value;
     }
 
-    getDescription(event) {
+    setDescription(event) {
         this.Description = event.target.value;
 
     }
@@ -57,10 +57,10 @@ class Popup extends Component {
                             <div className="Popup_Input">
                                 <button className="Popup_CloseButton" onClick={e => {e.preventDefault(); this.handleClick(); }}><GrClose/></button>
                                 <div className="Input_Name">
-                                    <span className="Task_Name_Input_Text">Nom de la tâche:</span><input className="Task_Name_Input" onChange={this.getName.bind(this)}></input>
+                                    <span className="Task_Name_Input_Text">Nom de la tâche:</span><input className="Task_Name_Input" onChange={this.setName.bind(this)}></input>
                                 </div>
                                 <div className="Input_Description">
-                                    <span className="Task_Description_Input_Text">Description de la tâche:</span><textarea className="Task_Description_Input" onChange={this.getDescription.bind(this)}></textarea>
+                                    <span className="Task_Description_Input_Text">Description de la tâche:</span><textarea className="Task_Description_Input" onChange={this.setDescription.bind(this)}></textarea>
                                 </div>
                                 <button className="Validate_Button" onClick={e => {e.preventDefault(); createTask({ variables: {taskName: this.Name , taskDescription: this.Description} }); this.handleClick();}}>Valider</button>
                             </div>
