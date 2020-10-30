@@ -61,18 +61,20 @@ class UpdatePopup extends Component {
                         {updateTask => (
                             <div className="inputSection">
                                 <button className="closeButton" onClick={e => {e.preventDefault(); this.handleClick(); }}><GrClose className="closeButtonLogo"/></button>
-                                <div className="Input_Name">
-                                    <span className="taskNameInputText">Nouveau nom de la tâche:</span>
-                                    <input className="taskNameInput" value={this.state.taskName} onChange={this.setTaskName.bind(this)}></input>
-                                    <span className="taskDescriptionInputText">Nouvelle description de la tâche:</span>
-                                    <textarea className="taskDescriptionInput" value={this.state.taskDescription} onChange={this.setTaskDescription.bind(this) }></textarea>
-                                </div>
-                                <div className="radioSection">
-                                    <span className="taskStateText">Nouvelle état de la tâche:</span>
-                                    <label className="taskStateTextFalse"><input type="radio" name="taskState" value="false" checked={this.state.taskState === false} onChange={this.setTaskState.bind(this)}/> Tâche non terminé</label> 
-                                    <label className="taskStateTextTrue"><input type="radio" name="taskState" value="true" checked={this.state.taskState === true} onChange={this.setTaskState.bind(this)}/>Tâche terminé</label>
-                                </div>
-                                <button className="validateButton" onClick={e => {e.preventDefault(); updateTask({ variables: {taskID: taskID, taskName: this.state.taskName , taskDescription: this.state.taskDescription, taskState: this.state.taskState} }); this.handleClick();}}>Valider</button>
+                                <form onSubmit={e => {e.preventDefault(); updateTask({ variables: {taskID: taskID, taskName: this.state.taskName , taskDescription: this.state.taskDescription, taskState: this.state.taskState} }); this.handleClick();}}>
+                                    <div className="Input_Name">
+                                        <span className="taskNameInputText">Nouveau nom de la tâche:</span>
+                                        <input className="taskNameInput" value={this.state.taskName} onChange={this.setTaskName.bind(this)} required></input>
+                                        <span className="taskDescriptionInputText">Nouvelle description de la tâche:</span>
+                                        <textarea className="taskDescriptionInput" value={this.state.taskDescription} onChange={this.setTaskDescription.bind(this) }></textarea>
+                                    </div>
+                                    <div className="radioSection">
+                                        <span className="taskStateText">Nouvelle état de la tâche:</span>
+                                        <label className="taskStateTextFalse"><input type="radio" name="taskState" value="false" checked={this.state.taskState === false} onChange={this.setTaskState.bind(this)}/> Tâche non terminé</label> 
+                                        <label className="taskStateTextTrue"><input type="radio" name="taskState" value="true" checked={this.state.taskState === true} onChange={this.setTaskState.bind(this)}/>Tâche terminé</label>
+                                    </div>
+                                    <button className="validateButton">Valider</button>
+                                </form> 
                             </div>
                         )}
                     </Mutation>
